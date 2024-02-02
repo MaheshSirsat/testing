@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "command": "cds watch",
+      "name": "sasta debugger",
+      "request": "launch",
+      "type": "node-terminal",
+      "cwd": "${workspaceFolder}/srv/CatalogService.js",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    }
+  ]
+}

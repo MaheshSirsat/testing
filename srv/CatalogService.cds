@@ -1,9 +1,17 @@
 using {ibm.db.master,ibm.db.transaction} from '../srv/datamodel';
 // using {cappo.cds} from '../srv/CDSViews';
-service CatelogService @(path: 'CatelogService'){
+service CatelogService @(path: 'CatelogService',requires:'authenticated-user'){
     entity BusinessPartnerSet as projection on master.businesspartner;
     entity BPAddress as projection on master.address;
-    entity EmployeeSet as projection on master.employees;
+    entity EmployeeSet@(restrict:[{
+        grant:['READ'],to:'Viewer',where:'bankName==$user.BankName'
+    },
+    {
+      grant:['WRITE'],to:'Admin' 
+    }
+    
+    
+    ]) as projection on master.employees;
     entity ProductSet as projection on master.product;
     entity POs@(odata.draft.enabled:true
   
